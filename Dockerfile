@@ -1,5 +1,8 @@
-# Use an official Python runtime as a parent image
-FROM python:2.7-slim
+# Use the RHEL 8 UBI minimal base image
+FROM registry.access.redhat.com/ubi8/ubi-minimal
+
+# Install python3
+RUN microdnf install python3
 
 # Set the working directory to /app
 WORKDIR /app
@@ -8,7 +11,7 @@ WORKDIR /app
 ADD . /app
 
 # Install any needed packages specified in requirements.txt
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 # Make port 8080 available to the world outside this container
 EXPOSE 8080
@@ -17,4 +20,4 @@ EXPOSE 8080
 ENV NAME World
 
 # Run app.py when the container launches
-CMD ["python", "app.py"]
+CMD ["python3", "app.py"]
